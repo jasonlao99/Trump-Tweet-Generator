@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://unpkg.com/react/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone"></script>
+        <style>
+            html{
+                margin-top: 2rem;
+                background: #E1E8ED;
+                display: flex;
+            }
+
+            body, #app {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+
+            .meme-container {
+                background: #aab8c2
+                margin: auto auto 30px 30px;
+                width: 650px;
+            }
+
+            .nav{
+                background-color: #1da1f2;
+                animation: fadeStickyIn 1s ease-in-out forwards;
+                position: fixed;
+                padding: 0;
+                height: 1.5rem;
+                left: 0;
+                margin: auto;
+                max-width: 1600px;
+                top:0;
+                right: 0;
+                width: 100%;
+                z-index: 101;
+            }
+
+            .meme-input {
+                color: black;
+                background: white;
+                width: 100%;
+                box-sizing: border-box;
+                border: none;
+                margin: 20px 0;
+                padding: 15px;
+                font-size: 1.25em;
+                border-radius: 4px;
+            }
+
+            .meme-input:active, .meme: hover {
+                border: 2px #1da1f2;
+            }
+
+            .header-text{
+                font-family: Helvetica Neue LT,Helvetica Neue,Helvetica,Arial,sans-serif;
+                color: #fff;
+                font-size: .9975rem;
+                line-height: 1.5rem;
+                letter-spacing: .025rem;
+                font-weight: 700;
+                padding-bottom: .75rem;
+                padding-top: .75rem;
+                padding-left: 3rem;
+            }
+
+            h2{
+                position: absolute;
+                top: 80px;
+                left: 20px;
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                font-weight: normal;
+                font-size: 2rem;
+                margin: 20px 10px;
+            }
+
+            .meme {
+                padding: 10px;
+                background: white;
+                padding-top: 10px;
+                position: relative;
+                font-size: 1em;
+                border-radius: 4px;
+            }
+
+            .meme img{
+                width: 100%;
+                border-radius: 4px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="nav header-text">Twitter</div>
+        <div id="app"></div>
+        <script type="text/babel">
+            function randomlyCapitalizeWords(text){
+                let words = text.split(" ");
+                for(let i = 0; i < words.length; i++){
+                    if(Math.floor(Math.random() * 5) == 0)
+                        words[i] = words[i].toUpperCase();
+                }
+                return words.join(" ");
+            }
+            class App extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.state = { content: ''};
+                }
+
+                render() {
+                    const content = this.state.content;
+                    let tweet = randomlyCapitalizeWords(content);
+                    
+                    return (
+                        <div className="meme-container">
+                            <input className="meme-input" placeholder="Type here if you feel angry and irrational" value={this.state.content} onChange={event => this.setState({content: event.target.value})}/>
+                            <div className="meme">
+                                <img src="https://i.imgflip.com/1pvsy8.jpg"/>
+                                <h2>{tweet}</h2>
+                            </div>
+                        </div>
+                    )
+                }
+            }
+
+            ReactDOM.render(<App/>, document.querySelector('#app'));
+        </script>
+    </body>
+</html>
